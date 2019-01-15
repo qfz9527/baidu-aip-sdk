@@ -1,22 +1,7 @@
-# 安装PHP SDK
+# 百度 AI 开放平台 php-sdk
+> 支持 composer
 
-## 目录结构
-```
-  ├── AipOcr.php                // OCR
-  ├── AipNlp.php                // NLP
-  ├── AipFace.php               // 人脸
-  ├── AipImageCensor.php        // 图像审核
-  ├── AipImageClassify.php      // 图像识别
-  ├── AipImageSearch.php        // 图像搜索
-  ├── AipKg.php                 // 知识图谱
-  ├── AipSpeech.php             // 语音
-  └── lib
-      ├── AipHttpClient.php        //内部http请求类
-      ├── AipBCEUtil.php           //内部工具类
-      └── AipBase                  //Aip基类
-```
-
-**支持 PHP版本：5.3+**
+**支持 PHP版本：7.0+**
 
 **安装步骤如下：**
 

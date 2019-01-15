@@ -1,0 +1,20 @@
+{
+  "name": "qbhy/baidu-ai-sdk",
+  "description": "百度 AI 开放平台 php-sdk",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "qbhy",
+      "email": "96qbhy@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-json": ">=1.0",
+    "hanson/foundation-sdk": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Qbhy\\BaiduAI\\": "src"
+    }
+  }
+}
