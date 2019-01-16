@@ -1,5 +1,6 @@
 <?php
 /**
+ * @link http://ai.baidu.com/docs#/BodyAnalysis-PHP-SDK/top
  * User: qbhy
  * Date: 2019-01-16
  * Time: 19:48
@@ -7,6 +8,13 @@
 
 namespace Qbhy\BaiduAIP;
 
+/**
+ * Class BodyAnalysis
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class BodyAnalysis extends Api
 {
     /**

@@ -10,6 +10,13 @@ namespace Qbhy\BaiduAIP;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
+/**
+ * Class Ocr
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
@@ -32,6 +39,10 @@ class ServiceProvider implements ServiceProviderInterface
 
         $pimple['face'] = function (BaiduAIP $baidu) {
             return new Face($baidu);
+        };
+
+        $pimple['ocr'] = function (BaiduAIP $baidu) {
+            return new Ocr($baidu);
         };
 
         $pimple['speech'] = function (BaiduAIP $baidu) {

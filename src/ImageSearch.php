@@ -8,6 +8,13 @@
 
 namespace Qbhy\BaiduAIP;
 
+/**
+ * Class ImageSearch
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class ImageSearch extends Api
 {
     /**

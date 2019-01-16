@@ -8,6 +8,13 @@
 
 namespace Qbhy\BaiduAIP;
 
+/**
+ * Class ImageCensor
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class ImageCensor extends Api
 {
     const ImageCensorUserDefinedUrl = 'https://aip.baidubce.com/rest/2.0/solution/v1/img_censor/user_defined';

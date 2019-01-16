@@ -10,6 +10,13 @@ namespace Qbhy\BaiduAIP;
 use GuzzleHttp\Exception\BadResponseException;
 use Hanson\Foundation\AbstractAccessToken;
 
+/**
+ * Class AccessToken
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class AccessToken extends AbstractAccessToken
 {
 

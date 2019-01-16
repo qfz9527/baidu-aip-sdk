@@ -8,6 +8,13 @@
 
 namespace Qbhy\BaiduAIP;
 
+/**
+ * Class Speech
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class Speech extends Api
 {
     const AsrUrl = 'http://vop.baidu.com/server_api';

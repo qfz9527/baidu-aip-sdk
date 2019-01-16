@@ -11,6 +11,13 @@ use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Laravel\Lumen\Application as LumenApplication;
 
+/**
+ * Class LaravelServiceProvider
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class LaravelServiceProvider extends BaseServiceProvider
 {
     public function boot()

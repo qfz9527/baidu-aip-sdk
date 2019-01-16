@@ -11,6 +11,13 @@ use GuzzleHttp\RequestOptions;
 use Hanson\Foundation\AbstractAPI;
 use Qbhy\BaiduAIP\Kernel\AipSampleSigner;
 
+/**
+ * Class Api
+ *
+ * @author  qbhy <96qbhy@gmail.com>
+ *
+ * @package Qbhy\BaiduAIP
+ */
 class Api extends AbstractAPI
 {
     /**

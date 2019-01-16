@@ -18,7 +18,10 @@ use Hanson\Foundation\Foundation;
  * @property BodyAnalysis  $body_analysis  人体分析
  * @property Speech        $speech         百度语音
  * @property Face          $face           人脸识别
+ * @property Ocr           $ocr            文字识别
  * @property AccessToken   $access_token
+ *
+ * @author  qbhy <96qbhy@gmail.com>
  *
  * @package Qbhy\BaiduAI
  */
