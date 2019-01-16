@@ -53,6 +53,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new Speech($baidu);
         };
 
+        $pimple['kg'] = function (BaiduAIP $baidu) {
+            return new Kg($baidu);
+        };
+
         $pimple['access_token'] = function (BaiduAIP $baidu) {
             return new AccessToken($baidu);
         };

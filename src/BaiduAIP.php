@@ -20,6 +20,7 @@ use Hanson\Foundation\Foundation;
  * @property Face          $face           人脸识别
  * @property Ocr           $ocr            文字识别
  * @property Nlp           $nlp            自然语言处理
+ * @property Kg            $kg
  * @property AccessToken   $access_token
  *
  * @author  qbhy <96qbhy@gmail.com>
