@@ -26,6 +26,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new ImageSearch($baidu);
         };
 
+        $pimple['body_analysis'] = function (BaiduAIP $baidu) {
+            return new BodyAnalysis($baidu);
+        };
+
         $pimple['speech'] = function (BaiduAIP $baidu) {
             return new Speech($baidu);
         };

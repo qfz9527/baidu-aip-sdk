@@ -12,10 +12,11 @@ use Hanson\Foundation\Foundation;
 /**
  * Class BaiduAI
  *
- * @property ImageCensor   $image_censor
- * @property ImageClassify $image_classify
- * @property ImageSearch   $image_search
- * @property Speech        $speech
+ * @property ImageCensor   $image_censor   图像审核、内容审核
+ * @property ImageClassify $image_classify 图像识别
+ * @property ImageSearch   $image_search   图像搜索
+ * @property BodyAnalysis  $body_analysis  人体分析
+ * @property Speech        $speech         百度语音
  * @property AccessToken   $access_token
  *
  * @package Qbhy\BaiduAI
