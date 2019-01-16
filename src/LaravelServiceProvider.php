@@ -37,6 +37,8 @@ class LaravelServiceProvider extends BaseServiceProvider
 
     public function register()
     {
+        $this->setupConfig();
+
         $this->app->singleton(BaiduAIP::class, function ($app) {
             return new BaiduAIP(config('baidu_aip'));
         });
