@@ -18,6 +18,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new ImageCensor($baidu);
         };
 
+        $pimple['speech'] = function (BaiduAIP $baidu) {
+            return new Speech($baidu);
+        };
+
         $pimple['access_token'] = function (BaiduAIP $baidu) {
             return new AccessToken($baidu);
         };

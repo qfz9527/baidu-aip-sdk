@@ -13,6 +13,7 @@ use Hanson\Foundation\Foundation;
  * Class BaiduAI
  *
  * @property ImageCensor $image_censor
+ * @property Speech      $speech
  * @property AccessToken $access_token
  *
  * @package Qbhy\BaiduAI
