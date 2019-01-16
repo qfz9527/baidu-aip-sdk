@@ -45,6 +45,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new Ocr($baidu);
         };
 
+        $pimple['nlp'] = function (BaiduAIP $baidu) {
+            return new Nlp($baidu);
+        };
+
         $pimple['speech'] = function (BaiduAIP $baidu) {
             return new Speech($baidu);
         };
