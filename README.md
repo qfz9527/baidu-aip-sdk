@@ -32,8 +32,9 @@ var_dump(json_encode($aip->image_censor->antiSpam('测试')));
 ```
 
 ## API
-* `$aip->image_censor` 图像审核服务，对应百度AI开放平台中的视觉技术的 [ImageCensoring](http://ai.baidu.com/docs#/ImageCensoring-PHP-SDK/top) API
-* `$aip->speech` 百度语音服务，对应百度AI开放平台中的百度语音 [ImageCensoring](http://ai.baidu.com/docs#/ImageCensoring-PHP-SDK/top) API
+* `$aip->image_censor` 图像审核服务，对应百度AI开放平台中视觉技术的 [ImageCensoring](http://ai.baidu.com/docs#/ImageCensoring-PHP-SDK/top) API
+* `$aip->image_classify` 图像识别服务，对应百度AI开放平台中视觉技术的 [ImageCensoring](http://ai.baidu.com/docs#/ImageClassify-PHP-SDK/top) API
+* `$aip->speech` 百度语音服务，对应百度AI开放平台中的百度语音 [ImageCensoring](http://ai.baidu.com/docs#/ASR-Online-PHP-SDK/top) API
 * TODO...
 
 
