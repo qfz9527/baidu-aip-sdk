@@ -5,19 +5,19 @@
  * Time: 19:11
  */
 
-namespace Qbhy\BaiduAI;
+namespace Qbhy\BaiduAIP;
 
 use Hanson\Foundation\Foundation;
 
 /**
  * Class BaiduAI
  *
- * @property Api         $api
+ * @property ImageCensor $image_censor
  * @property AccessToken $access_token
  *
  * @package Qbhy\BaiduAI
  */
-class BaiduAI extends Foundation
+class BaiduAIP extends Foundation
 {
     protected $providers = [
         ServiceProvider::class,

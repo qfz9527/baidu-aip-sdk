@@ -5,8 +5,7 @@
  * Time: 19:12
  */
 
-namespace Qbhy\BaiduAI;
-
+namespace Qbhy\BaiduAIP;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -15,11 +14,11 @@ class ServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $pimple)
     {
-        $pimple['api'] = function (BaiduAI $baidu) {
-            return new Api($baidu);
+        $pimple['image_censor'] = function (BaiduAIP $baidu) {
+            return new ImageCensor($baidu);
         };
 
-        $pimple['access_token'] = function (BaiduAI $baidu) {
+        $pimple['access_token'] = function (BaiduAIP $baidu) {
             return new AccessToken($baidu);
         };
     }

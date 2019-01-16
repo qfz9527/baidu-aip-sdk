@@ -26,36 +26,42 @@ class AipBase
 
     /**
      * 获取access token url
+     *
      * @var string
      */
     protected $accessTokenUrl = 'https://aip.baidubce.com/oauth/2.0/token';
 
     /**
      * 反馈接口
+     *
      * @var string
      */
     protected $reportUrl = 'https://aip.baidubce.com/rpc/2.0/feedback/v1/report';
 
     /**
      * appId
+     *
      * @var string
      */
     protected $appId = '';
 
     /**
      * apiKey
+     *
      * @var string
      */
     protected $apiKey = '';
 
     /**
      * secretKey
+     *
      * @var string
      */
     protected $secretKey = '';
 
     /**
      * 权限
+     *
      * @var array
      */
     protected $scope = 'brain_all_scope';
@@ -78,6 +84,7 @@ class AipBase
 
     /**
      * 查看版本
+     *
      * @return string
      *
      */
@@ -88,6 +95,7 @@ class AipBase
 
     /**
      * 连接超时
+     *
      * @param int $ms 毫秒
      */
     public function setConnectionTimeoutInMillis($ms)
@@ -97,6 +105,7 @@ class AipBase
 
     /**
      * 响应超时
+     *
      * @param int $ms 毫秒
      */
     public function setSocketTimeoutInMillis($ms)
@@ -106,7 +115,9 @@ class AipBase
 
     /**
      * 代理
+     *
      * @param array $proxy
+     *
      * @return string
      *
      */
@@ -117,10 +128,11 @@ class AipBase
 
     /**
      * 处理请求参数
+     *
      * @param  string $url
-     * @param array $params
-     * @param array $data
-     * @param array $headers
+     * @param array   $params
+     * @param array   $data
+     * @param array   $headers
      */
     protected function proccessRequest($url, &$params, &$data, $headers)
     {
@@ -130,8 +142,10 @@ class AipBase
 
     /**
      * Api 请求
+     *
      * @param  string $url
-     * @param  mixed $data
+     * @param  mixed  $data
+     *
      * @return mixed
      */
     protected function request($url, $data, $headers = array())
@@ -179,8 +193,10 @@ class AipBase
 
     /**
      * Api 多个并发请求
+     *
      * @param  string $url
-     * @param  mixed $data
+     * @param  mixed  $data
+     *
      * @return mixed
      */
     protected function multi_request($url, $data)
@@ -233,8 +249,10 @@ class AipBase
 
     /**
      * 格式检查
+     *
      * @param  string $url
-     * @param  array $data
+     * @param  array  $data
+     *
      * @return mix
      */
     protected function validate($url, &$data)
@@ -244,7 +262,9 @@ class AipBase
 
     /**
      * 格式化结果
+     *
      * @param $content string
+     *
      * @return mixed
      */
     protected function proccessResult($content)
@@ -254,6 +274,7 @@ class AipBase
 
     /**
      * 返回 access token 路径
+     *
      * @return string
      */
     private function getAuthFilePath()
@@ -263,7 +284,9 @@ class AipBase
 
     /**
      * 写入本地文件
+     *
      * @param  array $obj
+     *
      * @return void
      */
     private function writeAuthObj($obj)
@@ -279,6 +302,7 @@ class AipBase
 
     /**
      * 读取本地缓存
+     *
      * @return array
      */
     private function readAuthObj()
@@ -298,7 +322,9 @@ class AipBase
 
     /**
      * 认证
+     *
      * @param bool $refresh 是否刷新
+     *
      * @return array
      */
     private function auth($refresh = false)
@@ -326,7 +352,9 @@ class AipBase
 
     /**
      * 判断认证是否有权限
+     *
      * @param  array $authObj
+     *
      * @return boolean
      */
     protected function isPermission($authObj)
@@ -343,7 +371,8 @@ class AipBase
     /**
      * @param  string $method HTTP method
      * @param  string $url
-     * @param  array $param   参数
+     * @param  array  $param  参数
+     *
      * @return array
      */
     private function getAuthHeaders($method, $url, $params = array(), $headers = array())
@@ -385,6 +414,7 @@ class AipBase
      * 反馈
      *
      * @param array $feedbacks
+     *
      * @return array
      */
     public function report($feedback)
@@ -399,9 +429,11 @@ class AipBase
 
     /**
      * 通用接口
+     *
      * @param string $url
-     * @param array $data
+     * @param array  $data
      * @param array header
+     *
      * @return array
      */
     public function post($url, $data, $headers = array())

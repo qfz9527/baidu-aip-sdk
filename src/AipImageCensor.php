@@ -65,7 +65,6 @@ class AipImageCensor extends AipBase{
      * @return array
      */
     public function antiPorn($image){
-
         $data = array();
         $data['image'] = base64_encode($image);
 

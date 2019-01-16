@@ -18,62 +18,75 @@
 /**
  * Http Client
  */
-class AipHttpClient{
+class AipHttpClient
+{
 
     /**
      * HttpClient
+     *
      * @param array $headers HTTP header
      */
-    public function __construct($headers=array()){
-        $this->headers = $this->buildHeaders($headers);
+    public function __construct($headers = array())
+    {
+        $this->headers        = $this->buildHeaders($headers);
         $this->connectTimeout = 60000;
-        $this->socketTimeout = 60000;
-        $this->conf = array();
+        $this->socketTimeout  = 60000;
+        $this->conf           = array();
     }
 
     /**
      * 连接超时
+     *
      * @param int $ms 毫秒
      */
-    public function setConnectionTimeoutInMillis($ms){
+    public function setConnectionTimeoutInMillis($ms)
+    {
         $this->connectTimeout = $ms;
     }
 
     /**
      * 响应超时
+     *
      * @param int $ms 毫秒
      */
-    public function setSocketTimeoutInMillis($ms){
+    public function setSocketTimeoutInMillis($ms)
+    {
         $this->socketTimeout = $ms;
-    }    
+    }
 
     /**
      * 配置
+     *
      * @param array $conf
      */
-    public function setConf($conf){
+    public function setConf($conf)
+    {
         $this->conf = $conf;
     }
 
     /**
      * 请求预处理
+     *
      * @param resource $ch
      */
-    public function prepare($ch){
-        foreach($this->conf as $key => $value){
+    public function prepare($ch)
+    {
+        foreach ($this->conf as $key => $value) {
             curl_setopt($ch, $key, $value);
         }
-    }    
+    }
 
     /**
      * @param  string $url
-     * @param  array $data HTTP POST BODY
-     * @param  array $param HTTP URL
-     * @param  array $headers HTTP header
+     * @param  array  $data    HTTP POST BODY
+     * @param  array  $param   HTTP URL
+     * @param  array  $headers HTTP header
+     *
      * @return array
      */
-    public function post($url, $data=array(), $params=array(), $headers=array()){
-        $url = $this->buildUrl($url, $params);
+    public function post($url, $data = array(), $params = array(), $headers = array())
+    {
+        $url     = $this->buildUrl($url, $params);
         $headers = array_merge($this->headers, $this->buildHeaders($headers));
 
         $ch = curl_init();
@@ -88,35 +101,37 @@ class AipHttpClient{
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->socketTimeout);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $this->connectTimeout);
         $content = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $code    = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if($code === 0){
+        if ($code === 0) {
             throw new Exception(curl_error($ch));
         }
 
         curl_close($ch);
         return array(
-            'code' => $code,
+            'code'    => $code,
             'content' => $content,
         );
     }
 
     /**
      * @param  string $url
-     * @param  array $datas HTTP POST BODY
-     * @param  array $param HTTP URL
-     * @param  array $headers HTTP header
+     * @param  array  $datas   HTTP POST BODY
+     * @param  array  $param   HTTP URL
+     * @param  array  $headers HTTP header
+     *
      * @return array
      */
-    public function multi_post($url, $datas=array(), $params=array(), $headers=array()){
-        $url = $this->buildUrl($url, $params);
+    public function multi_post($url, $datas = array(), $params = array(), $headers = array())
+    {
+        $url     = $this->buildUrl($url, $params);
         $headers = array_merge($this->headers, $this->buildHeaders($headers));
 
-        $chs = array();
+        $chs    = array();
         $result = array();
-        $mh = curl_multi_init();
-        foreach($datas as $data){        
-            $ch = curl_init();
+        $mh     = curl_multi_init();
+        foreach ($datas as $data) {
+            $ch    = curl_init();
             $chs[] = $ch;
             $this->prepare($ch);
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -132,33 +147,35 @@ class AipHttpClient{
         }
 
         $running = null;
-        do{
+        do {
             curl_multi_exec($mh, $running);
             usleep(100);
-        }while($running);
+        } while ($running);
 
-        foreach($chs as $ch){        
-            $content = curl_multi_getcontent($ch);
-            $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        foreach ($chs as $ch) {
+            $content  = curl_multi_getcontent($ch);
+            $code     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             $result[] = array(
-                'code' => $code,
+                'code'    => $code,
                 'content' => $content,
             );
             curl_multi_remove_handle($mh, $ch);
         }
         curl_multi_close($mh);
-        
+
         return $result;
     }
 
     /**
      * @param  string $url
-     * @param  array $param HTTP URL
-     * @param  array $headers HTTP header
+     * @param  array  $param   HTTP URL
+     * @param  array  $headers HTTP header
+     *
      * @return array
      */
-    public function get($url, $params=array(), $headers=array()){
-        $url = $this->buildUrl($url, $params);
+    public function get($url, $params = array(), $headers = array())
+    {
+        $url     = $this->buildUrl($url, $params);
         $headers = array_merge($this->headers, $this->buildHeaders($headers));
 
         $ch = curl_init();
@@ -171,43 +188,48 @@ class AipHttpClient{
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->socketTimeout);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, $this->connectTimeout);
         $content = curl_exec($ch);
-        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $code    = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if($code === 0){
+        if ($code === 0) {
             throw new Exception(curl_error($ch));
         }
-        
+
         curl_close($ch);
         return array(
-            'code' => $code,
+            'code'    => $code,
             'content' => $content,
         );
     }
 
     /**
      * 构造 header
+     *
      * @param  array $headers
+     *
      * @return array
      */
-    private function buildHeaders($headers){
+    private function buildHeaders($headers)
+    {
         $result = array();
-        foreach($headers as $k => $v){
+        foreach ($headers as $k => $v) {
             $result[] = sprintf('%s:%s', $k, $v);
         }
         return $result;
     }
 
     /**
-     * 
+     *
      * @param  string $url
-     * @param  array $params 参数
+     * @param  array  $params 参数
+     *
      * @return string
      */
-    private function buildUrl($url, $params){
-        if(!empty($params)){
+    private function buildUrl($url, $params)
+    {
+        if (!empty($params)) {
             $str = http_build_query($params);
             return $url . (strpos($url, '?') === false ? '?' : '&') . $str;
-        }else{
+        } else {
             return $url;
         }
     }

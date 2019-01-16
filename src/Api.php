@@ -5,54 +5,153 @@
  * Time: 19:14
  */
 
-namespace Qbhy\BaiduAI;
+namespace Qbhy\BaiduAIP;
 
+use GuzzleHttp\RequestOptions;
 use Hanson\Foundation\AbstractAPI;
+use Qbhy\BaiduAIP\Kernel\AipSampleSigner;
 
 class Api extends AbstractAPI
 {
+    /**
+     * @var BaiduAIP 百度 aip 实例
+     */
     protected $app;
 
-    public function __construct(BaiduAI $baidu)
+    /**
+     * @var string 所需权限
+     */
+    protected $scope = 'brain_all_scope';
+
+    /**
+     * @var string sdk 版本
+     */
+    protected $version = '2_2_5';
+
+    const ReportUrl = 'https://aip.baidubce.com/rpc/2.0/feedback/v1/report';
+
+    /**
+     * @var bool
+     */
+    protected $isCloudUser;
+
+    public function __construct(BaiduAIP $baidu)
     {
         $this->app = $baidu;
     }
 
-    public function request($url, $data, $headers = [])
+    /**
+     * 不是云的老用户则不用在header中签名认证
+     *
+     * @return bool
+     */
+    protected function isCloudUser(): bool
     {
-//        try {
-//            $params  = array();
-//
-//            $authObj = $this->auth();
-//
-//            if ($this->isCloudUser === false) {
-//                $params['access_token'] = $authObj['access_token'];
-//            }
-//
-//            // 特殊处理
-//            $this->proccessRequest($url, $params, $data, $headers);
-//
-//            $headers  = $this->getAuthHeaders('POST', $url, $params, $headers);
-//            $response = $this->client->post($url, $data, $params, $headers);
-//
-//            $obj = $this->proccessResult($response['content']);
-//
-//            if (!$this->isCloudUser && isset($obj['error_code']) && $obj['error_code'] == 110) {
-//                $authObj                = $this->auth(true);
-//                $params['access_token'] = $authObj['access_token'];
-//                $response               = $this->client->post($url, $data, $params, $headers);
-//                $obj                    = $this->proccessResult($response['content']);
-//            }
-//
-//            if (empty($obj) || !isset($obj['error_code'])) {
-//                $this->writeAuthObj($authObj);
-//            }
-//        } catch (Exception $e) {
-//            return array(
-//                'error_code' => 'SDK108',
-//                'error_msg'  => 'connection or read data timeout',
-//            );
-//        }
+        if (is_null($this->isCloudUser)) {
+            $scope             = $this->app->access_token->getScope();
+            $this->isCloudUser = $scope && in_array($this->scope, explode(' ', $scope));
+        }
+
+        return $this->isCloudUser;
+    }
+
+    /**
+     * @param  string $method HTTP method
+     * @param  string $url
+     * @param  array  $param  参数
+     *
+     * @return array
+     */
+    private function getAuthHeaders($method, $url, $params = [], $headers = []): array
+    {
+        if ($this->isCloudUser()) {
+            $obj = parse_url($url);
+            if (!empty($obj['query'])) {
+                $query = explode('&', $obj['query']);
+                foreach ($query as $kv) {
+                    if (!empty($kv)) {
+                        list($k, $v) = explode('=', $kv, 2);
+                        $params[$k] = $v;
+                    }
+                }
+            }
+
+            //UTC 时间戳
+            $timestamp             = gmdate('Y-m-d\TH:i:s\Z');
+            $headers['Host']       = isset($obj['port']) ? sprintf('%s:%s', $obj['host'], $obj['port']) : $obj['host'];
+            $headers['x-bce-date'] = $timestamp;
+
+            //签名
+            $headers['authorization'] = AipSampleSigner::sign([
+                'ak' => $this->app->getConfig('api_key'),
+                'sk' => $this->app->getConfig('secret_key'),
+            ], $method, $obj['path'], $headers, $params, [
+                'timestamp'     => $timestamp,
+                'headersToSign' => array_keys($headers),
+            ]);
+
+            return $headers;
+        }
+
+        return $headers;
+    }
+
+    /**
+     * @param string $url
+     * @param array  $options
+     *
+     * @return array
+     */
+    public function request(string $url, array $options)
+    {
+        $params             = [
+            'access_token'  => $this->app->access_token->getToken(),
+            'aipSdk'        => 'php',
+            'aipSdkVersion' => '2_2_5',
+        ];
+        $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers']);
+        $options['query']   = $params;
+
+        $response = json_decode($this->getHttp()->request('POST', $url, $options)->getBody()->__toString(), true);
+
+        return $response;
+    }
+
+    /**
+     * @param string $url
+     * @param array  $data
+     * @param array  $headers
+     *
+     * @return array
+     */
+    public function post(string $url, array $data, array $headers = [])
+    {
+        return $this->request($url, [RequestOptions::FORM_PARAMS => $data, RequestOptions::HEADERS => $headers,]);
+    }
+
+    /**
+     * @param string $url
+     * @param array  $data
+     * @param array  $headers
+     *
+     * @return array
+     */
+    public function json(string $url, array $data, array $headers = [])
+    {
+        return $this->request($url, [RequestOptions::JSON => $data, RequestOptions::HEADERS => $headers,]);
+    }
+
+
+    /**
+     * 反馈
+     *
+     * @param array $feedback
+     *
+     * @return array
+     */
+    public function report(array $feedback)
+    {
+        return $this->post(Api::ReportUrl, compact('feedback'));
     }
 
 }
