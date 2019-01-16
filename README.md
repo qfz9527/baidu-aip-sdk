@@ -31,5 +31,10 @@ $aip = new \Qbhy\BaiduAIP\BaiduAIP($config);
 var_dump(json_encode($aip->image_censor->antiSpam('测试')));
 ```
 
+## API
+* `$aip->image_censor` 图像审核服务，对应百度AI开放平台中的视觉技术的 [ImageCensoring](http://ai.baidu.com/docs#/ImageCensoring-PHP-SDK/top) API
+* TODO...
+
+
 [qbhy/baidu-aip](https://github.com/qbhy/baidu-aip-sdk)  
 96qbhy@gmail.com
