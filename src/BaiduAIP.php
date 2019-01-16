@@ -17,6 +17,7 @@ use Hanson\Foundation\Foundation;
  * @property ImageSearch   $image_search   图像搜索
  * @property BodyAnalysis  $body_analysis  人体分析
  * @property Speech        $speech         百度语音
+ * @property Face          $face           人脸识别
  * @property AccessToken   $access_token
  *
  * @package Qbhy\BaiduAI

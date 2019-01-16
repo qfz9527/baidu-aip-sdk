@@ -30,6 +30,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new BodyAnalysis($baidu);
         };
 
+        $pimple['face'] = function (BaiduAIP $baidu) {
+            return new Face($baidu);
+        };
+
         $pimple['speech'] = function (BaiduAIP $baidu) {
             return new Speech($baidu);
         };
