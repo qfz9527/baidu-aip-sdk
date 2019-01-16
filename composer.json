@@ -17,5 +17,15 @@
         "psr-4": {
             "Qbhy\\BaiduAIP\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Qbhy\\BaiduAIP\\LaravelServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "illuminate/support": "^5.5"
     }
 }
