@@ -14,6 +14,7 @@ use Hanson\Foundation\Foundation;
  *
  * @property ImageCensor   $image_censor
  * @property ImageClassify $image_classify
+ * @property ImageSearch   $image_search
  * @property Speech        $speech
  * @property AccessToken   $access_token
  *
