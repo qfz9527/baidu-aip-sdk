@@ -1,5 +1,5 @@
 # 百度 AI 开放平台 php-sdk
-> 支持 composer
+> 支持 composer、laravel/lumen
 
 ## 要求
 requirements
