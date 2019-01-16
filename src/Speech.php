@@ -53,7 +53,7 @@ class Speech extends Api
      *
      * @return array
      */
-    public function synthesis(string $text, $lang = 'zh', $ctp = 1, array $options = array())
+    public function synthesis(string $text, $lang = 'zh', $ctp = 1, array $options = [])
     {
         $data = [
             'tex' => $text,
