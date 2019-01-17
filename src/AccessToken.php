@@ -33,18 +33,28 @@ class AccessToken extends AbstractAccessToken
         $this->app = $app;
     }
 
+    /**
+     * @return string
+     * @throws Exceptions\UndefinedApplicationConfigurationException
+     */
+    public function getCacheKey()
+    {
+        return $this->app->getAppId();
+    }
+
     const URL = 'https://aip.baidubce.com/oauth/2.0/token';
 
     /**
-     * @return array
+     * @return mixed
+     * @throws Exceptions\UndefinedApplicationConfigurationException
      * @throws \Hanson\Foundation\Exception\HttpException
      */
     public function getTokenFromServer()
     {
         $response = @json_decode($this->getHttp()->get(AccessToken::URL, [
             'grant_type'    => 'client_credentials',
-            'client_id'     => $this->app->getConfig('api_key'),
-            'client_secret' => $this->app->getConfig('secret_key'),
+            'client_id'     => $this->app->getApiKey(),
+            'client_secret' => $this->app->getSecretKey(),
         ])->getBody()->__toString(), true);
 
         if (isset($response['scope'])) {
@@ -54,10 +64,16 @@ class AccessToken extends AbstractAccessToken
         return $response;
     }
 
+    /**
+     * @param $scope
+     * @param $expires
+     *
+     * @throws Exceptions\UndefinedApplicationConfigurationException
+     */
     public function setScope($scope, $expires)
     {
         $this->scope = $scope;
-        $this->getCache()->save($this->app->getConfig('app_id') . '_scope', $scope, $expires);
+        $this->getCache()->save($this->app->getAppId() . '_scope', $scope, $expires);
     }
 
     /**

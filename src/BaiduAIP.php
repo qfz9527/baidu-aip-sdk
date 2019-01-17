@@ -8,6 +8,7 @@
 namespace Qbhy\BaiduAIP;
 
 use Hanson\Foundation\Foundation;
+use Qbhy\BaiduAIP\Exceptions\UndefinedApplicationConfigurationException;
 
 /**
  * Class BaiduAI
@@ -32,4 +33,72 @@ class BaiduAIP extends Foundation
     protected $providers = [
         ServiceProvider::class,
     ];
+
+    /**
+     * 获取指定应用配置
+     *
+     * @param string $name
+     *
+     * @return array
+     * @throws UndefinedApplicationConfigurationException
+     */
+    public function getAppConfig($name = null)
+    {
+        $name = $name ?: $this->getConfig('use') ?: 'default';
+
+        $applications = $this->getConfig('applications');
+        if (isset($applications[$name])) {
+            return $applications[$name];
+        }
+        throw new UndefinedApplicationConfigurationException("undefined applications: {$name}");
+    }
+
+    /**
+     * 使用指定app配置
+     *
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function use(string $name)
+    {
+        $config        = $this->getConfig();
+        $config['use'] = $name;
+        $this->setConfig($config);
+
+        return $this;
+    }
+
+    /**
+     * 获取 app id
+     *
+     * @return string
+     * @throws UndefinedApplicationConfigurationException
+     */
+    public function getAppId()
+    {
+        return $this->getAppConfig()['app_id'];
+    }
+
+    /**
+     * 获取 api key
+     *
+     * @return string
+     * @throws UndefinedApplicationConfigurationException
+     */
+    public function getApiKey()
+    {
+        return $this->getAppConfig()['api_key'];
+    }
+
+    /**
+     * 获取 secret key
+     *
+     * @return string
+     * @throws UndefinedApplicationConfigurationException
+     */
+    public function getSecretKey()
+    {
+        return $this->getAppConfig()['secret_key'];
+    }
 }
