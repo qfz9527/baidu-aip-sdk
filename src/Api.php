@@ -128,7 +128,7 @@ class Api extends AbstractAPI
 
         $options = $this->specialHandling($url, $options);
 
-        $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers']);
+        $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers'] ?? []);
 
         $response = json_decode($this->getHttp()->request('POST', $url, $options)->getBody()->__toString(), true);
 
