@@ -103,6 +103,16 @@ class Api extends AbstractAPI
         return $headers;
     }
 
+    protected function specialHandling($url, $options)
+    {
+        $params = [
+            'aipSdk'        => 'php',
+            'aipSdkVersion' => $this->version,
+        ];
+
+        $options['query'] = array_merge($options['query'], $params);
+    }
+
     /**
      * @param string $url
      * @param array  $options
@@ -111,13 +121,12 @@ class Api extends AbstractAPI
      */
     public function request(string $url, array $options)
     {
-        $params             = [
-            'access_token'  => $this->app->access_token->getToken(),
-            'aipSdk'        => 'php',
-            'aipSdkVersion' => '2_2_5',
-        ];
+        $params           = ['access_token' => $this->app->access_token->getToken(),];
+        $options['query'] = $params;
+
+        $options = $this->specialHandling($url, $options);
+
         $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers']);
-        $options['query']   = $params;
 
         $response = json_decode($this->getHttp()->request('POST', $url, $options)->getBody()->__toString(), true);
 

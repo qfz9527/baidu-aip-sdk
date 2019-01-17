@@ -8,6 +8,8 @@
 
 namespace Qbhy\BaiduAIP;
 
+use GuzzleHttp\RequestOptions;
+
 /**
  * Class Speech
  *
@@ -20,6 +22,22 @@ class Speech extends Api
     const AsrUrl = 'http://vop.baidu.com/server_api';
 
     const TtsUrl = 'http://tsn.baidu.com/text2audio';
+
+    protected function specialHandling($url, $options)
+    {
+        $token                   = $options['query']['access_token'];
+        $options['json']['cuid'] = md5($token);
+
+        if ($url === Speech::AsrUrl) {
+            $options['json']['token'] = $token;
+        } else {
+            $options['json']['tok'] = $token;
+        }
+
+        unset($options['query']['access_token']);
+
+        return $options;
+    }
 
     /**
      * 语音识别
@@ -46,7 +64,7 @@ class Speech extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->post(Speech::AsrUrl, $data);
+        return $this->json(Speech::AsrUrl, $data);
     }
 
 
