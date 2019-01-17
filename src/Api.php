@@ -113,6 +113,8 @@ class Api extends AbstractAPI
         ];
 
         $options['query'] = array_merge($options['query'], $params);
+
+        return $options;
     }
 
     /**
@@ -123,12 +125,12 @@ class Api extends AbstractAPI
      */
     public function request(string $url, array $options)
     {
-        $params           = ['access_token' => $this->app->access_token->getToken(),];
+        $params           = ['access_token' => $this->app->access_token->getToken()];
         $options['query'] = $params;
 
         $options = $this->specialHandling($url, $options);
 
-        $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers'] ?? []);
+        $options['headers'] = $this->getAuthHeaders('POST', $url, $params, $options['headers']);
 
         $response = json_decode($this->getHttp()->request('POST', $url, $options)->getBody()->__toString(), true);
 
@@ -144,7 +146,7 @@ class Api extends AbstractAPI
      */
     public function post(string $url, array $data, array $headers = [])
     {
-        return $this->request($url, [RequestOptions::FORM_PARAMS => $data, RequestOptions::HEADERS => $headers,]);
+        return $this->request($url, [RequestOptions::FORM_PARAMS => $data, RequestOptions::HEADERS => $headers]);
     }
 
     /**
@@ -156,7 +158,7 @@ class Api extends AbstractAPI
      */
     public function json(string $url, array $data, array $headers = [])
     {
-        return $this->request($url, [RequestOptions::JSON => $data, RequestOptions::HEADERS => $headers,]);
+        return $this->request($url, [RequestOptions::JSON => $data, RequestOptions::HEADERS => $headers]);
     }
 
 
