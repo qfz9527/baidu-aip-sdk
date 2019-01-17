@@ -9,6 +9,7 @@ namespace Qbhy\BaiduAIP;
 
 use GuzzleHttp\RequestOptions;
 use Hanson\Foundation\AbstractAPI;
+use Qbhy\BaiduAIP\Exceptions\UndefinedApplicationConfigurationException;
 use Qbhy\BaiduAIP\Kernel\AipSampleSigner;
 
 /**
@@ -68,6 +69,7 @@ class Api extends AbstractAPI
      * @param  array  $param  参数
      *
      * @return array
+     * @throws UndefinedApplicationConfigurationException
      */
     private function getAuthHeaders($method, $url, $params = [], $headers = []): array
     {
@@ -90,8 +92,8 @@ class Api extends AbstractAPI
 
             //签名
             $headers['authorization'] = AipSampleSigner::sign([
-                'ak' => $this->app->getConfig('api_key'),
-                'sk' => $this->app->getConfig('secret_key'),
+                'ak' => $this->app->getAppId(),
+                'sk' => $this->app->getSecretKey(),
             ], $method, $obj['path'], $headers, $params, [
                 'timestamp'     => $timestamp,
                 'headersToSign' => array_keys($headers),
