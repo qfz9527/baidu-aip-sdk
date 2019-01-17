@@ -10,7 +10,7 @@ requirements
 ## 安装
 install
 ```bash
-$ composer require 96qbhy/baidu-aip:dev-master
+$ composer require 96qbhy/baidu-aip
 ```
 
 ## 使用
