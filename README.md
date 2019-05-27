@@ -20,16 +20,28 @@ usage
 require 'vendor/autoload.php';
 
 $config = [
-    'debug'      => true,
-    'app_id'     => 'your app id',
-    'api_key'    => 'your api key',
-    'secret_key' => 'your secret key',
-];
+      'use'          => 'default',
+      'debug'        => true,
+      'applications' => [
+          'default' => [
+              'app_id'     => 'your app id',
+              'api_key'    => 'your api key',
+              'secret_key' => 'your secret key',
+          ],
+          'your app' => [
+              'app_id'     => 'your app id',
+              'api_key'    => 'your api key',
+              'secret_key' => 'your secret key',
+          ],
+      ]
+  ];
 
 $aip = new \Qbhy\BaiduAIP\BaiduAIP($config);
 
 var_dump(json_encode($aip->image_censor->antiSpam('测试')));
+var_dump(json_encode($aip->use('your app')->image_censor->antiSpam('测试')));
 ```
+> sdk支持多应用，使用 use 切换当前应用配置。
 
 ## API
 * `$aip->image_censor` 图像审核服务，对应百度AI开放平台中视觉技术的 [图像审核](http://ai.baidu.com/docs#/ImageCensoring-PHP-SDK/top) API
