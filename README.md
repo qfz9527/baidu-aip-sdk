@@ -55,5 +55,6 @@ var_dump(json_encode($aip->use('your app')->image_censor->antiSpam('测试')));
 * `$aip->kg` 讲真这个我也不知道干什么的，但是官方SDK有
 
 
+php吹水交流群请添加: 873213948  
 [qbhy/baidu-aip](https://github.com/qbhy/baidu-aip-sdk)  
 96qbhy@gmail.com
