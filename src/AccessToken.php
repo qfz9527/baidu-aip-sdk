@@ -33,6 +33,11 @@ class AccessToken extends AbstractAccessToken
         $this->app = $app;
     }
 
+    public function getHttp()
+    {
+        return $this->app->http;
+    }
+
     /**
      * @return string
      * @throws Exceptions\UndefinedApplicationConfigurationException
