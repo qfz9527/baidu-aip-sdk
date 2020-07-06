@@ -60,6 +60,10 @@ class ServiceProvider implements ServiceProviderInterface
         $pimple['access_token'] = function (BaiduAIP $baidu) {
             return new AccessToken($baidu);
         };
+
+        $pimple['image_process'] = function (BaiduAIP $baidu){
+            return new ImageProcess($baidu);
+        };
     }
 
 }
