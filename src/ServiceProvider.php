@@ -33,6 +33,10 @@ class ServiceProvider implements ServiceProviderInterface
             return new ImageSearch($baidu);
         };
 
+        $pimple['image_process'] = function (BaiduAIP $baidu) {
+            return new ImageProcess($baidu);
+        };
+
         $pimple['body_analysis'] = function (BaiduAIP $baidu) {
             return new BodyAnalysis($baidu);
         };
@@ -59,10 +63,6 @@ class ServiceProvider implements ServiceProviderInterface
 
         $pimple['access_token'] = function (BaiduAIP $baidu) {
             return new AccessToken($baidu);
-        };
-
-        $pimple['image_process'] = function (BaiduAIP $baidu){
-            return new ImageProcess($baidu);
         };
     }
 

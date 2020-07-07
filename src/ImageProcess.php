@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * shaogaojie@gmail.com
+ * 2020-07-07 11:36:04
+ * 图像效果增强服务
+ */
 namespace Qbhy\BaiduAIP;
 
 
@@ -55,7 +59,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::imageQualityEnhanceUrl, $data);
+        return $this->post(ImageProcess::imageQualityEnhanceUrl, $data);
     }
 
     /**
@@ -75,7 +79,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::dehazeUrl, $data);
+        return $this->post(ImageProcess::dehazeUrl, $data);
     }
 
     /**
@@ -95,7 +99,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::contrastEnhanceUrl, $data);
+        return $this->post(ImageProcess::contrastEnhanceUrl, $data);
     }
 
     /**
@@ -115,7 +119,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::colourizeUrl, $data);
+        return $this->post(ImageProcess::colourizeUrl, $data);
     }
 
     /**
@@ -135,7 +139,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::stretchRestoreUrl, $data);
+        return $this->post(ImageProcess::stretchRestoreUrl, $data);
     }
 
     /**
@@ -157,7 +161,7 @@ class ImageProcess extends Api
 
         $data = array_merge($data, $options);
 
-        return $this->request(ImageProcess::selfieAnimeUrl, $data);
+        return $this->post(ImageProcess::selfieAnimeUrl, $data);
     }
 
 }
