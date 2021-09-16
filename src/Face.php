@@ -24,11 +24,6 @@ class Face extends Api
     const detectUrl = 'https://aip.baidubce.com/rest/2.0/face/v3/detect';
 
     /**
-     * 人脸搜索 search api url
-     */
-    const searchUrl = 'https://aip.baidubce.com/rest/2.0/face/v3/search';
-
-    /**
      * 人脸搜索M:N识别 multi-search api url
      */
     const searchUrl = 'https://aip.baidubce.com/rest/2.0/face/v3/multi-search';
