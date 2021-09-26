@@ -44,6 +44,15 @@ class Api extends AbstractAPI
     protected $isCloudUser;
 
     /**
+     * @param BaiduAIP $app
+     */
+    public function __construct(BaiduAIP $app)
+    {
+        $this->app = $app;
+    }
+
+
+    /**
      * 不是云的老用户则不用在header中签名认证
      *
      * @return bool

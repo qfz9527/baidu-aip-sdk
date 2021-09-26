@@ -15,6 +15,8 @@ use Hanson\Foundation\AbstractAccessToken;
  *
  * @author  qbhy <96qbhy@gmail.com>
  *
+ * @property-read BaiduAIP app
+ *
  * @package Qbhy\BaiduAIP
  */
 class AccessToken extends AbstractAccessToken
@@ -24,14 +26,7 @@ class AccessToken extends AbstractAccessToken
 
     protected $expiresJsonKey = 'expires_in';
 
-    protected $app;
-
     protected $scope;
-
-    public function __construct(BaiduAIP $app)
-    {
-        $this->app = $app;
-    }
 
     public function getHttp()
     {
