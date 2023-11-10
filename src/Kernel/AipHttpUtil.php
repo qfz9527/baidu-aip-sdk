@@ -69,7 +69,7 @@ class AipHttpUtil
     {
         $result = '';
         for ($i = 0; $i < strlen($value); ++$i) {
-            $result .= AipHttpUtil::$PERCENT_ENCODED_STRINGS[ord($value[$i])];
+            $result .= AipHttpUtil::$PERCENT_ENCODED_STRINGS[ord($value[$i])]??'';
         }
         return $result;
     }
